@@ -74,26 +74,52 @@
       </nav>
 
       <!-- Main Content -->
-      <div class="flex-grow-1 p-3">
-        <div>
-          <button class="btn btn-primary" id="btn-create-product">
-            <i class="fas fa-plus"></i> Novo Material
-          </button>
-        </div>
 
-        <div class="d-flex flex-wrap gap-3">
-          <div class="material-block position-relative">
-            <div class="material-menu position-absolute">
-              <i class="fas fa-edit" title="Editar" data-bs-toggle="modal" data-bs-target="#editModal"></i>
-              <i class="fas fa-trash-alt" title="Excluir" data-bs-toggle="modal" data-bs-target="#deleteModal"></i>
-            </div>
-            <img src="placeholder.jpg" alt="Material" class="material-image">
-            <div class="material-info">
-              <h4>Nome do Material</h4>
-              <p>Quantidade: 10 unidades</p>
-            </div>
-          </div>
-          <!-- Outros blocos de materiais aqui -->
+      <div class="flex-grow-1 p-3">
+        <h2 class="mb-4">Estoque de Materiais</h2>
+        
+        <!-- Botão "Novo Material" -->
+
+       <button class="btn btn-primary" id="btn-create-product" data-bs-toggle="modal" data-bs-target="#newMaterialModal">
+         <i class="fas fa-plus"></i> Novo Material
+       </button>
+       
+       <!-- Modal para Novo Material -->
+
+       <div class="modal fade" id="newMaterialModal" tabindex="-1" aria-labelledby="newMaterialModalLabel" aria-hidden="true">
+         <div class="modal-dialog">
+           <div class="modal-content">
+             <div class="modal-header">
+               <h5 class="modal-title" id="newMaterialModalLabel">Adicionar Novo Material</h5>
+               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+             </div>
+             <div class="modal-body">
+               <form id="new-material-form">
+                 <div class="mb-3">
+                   <label for="material-name" class="form-label">Nome do Material</label>
+                   <input type="text" class="form-control" id="material-name" placeholder="Material" required>
+                 </div>
+                 <div class="mb-3">
+                   <label for="material-quantity" class="form-label">Quantidade</label>
+                   <input type="number" class="form-control" id="material-quantity" placeholder="Quantidade" required>
+                 </div>
+                 <div class="mb-3">
+                   <label for="material-description" class="form-label">Descrição</label>
+                   <textarea class="form-control" id="material-description" placeholder="Descrição"></textarea>
+                 </div>
+               </form>
+             </div>
+             <div class="modal-footer">
+               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+               <button type="button" class="btn btn-primary" id="save-new-material">Salvar</button>
+             </div>
+           </div>
+         </div>
+       </div>
+      <!-- Área para exibir os materiais criados -->
+      <div class="d-flex flex-wrap gap-3" id="materials-container"></div>
+        
+          
         </div>
       </div>
       
@@ -152,5 +178,55 @@
 
     <!-- Bootstrap JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+    <script>
+      document.getElementById('save-new-material').addEventListener('click', function() {
+    const name = document.getElementById('material-name').value;
+    const quantity = document.getElementById('material-quantity').value;
+    const description = document.getElementById('material-description').value;
+
+    if (name && quantity) {
+      // Criar o elemento do material
+      const materialsContainer = document.getElementById('materials-container');
+
+      const materialBlock = document.createElement('div');
+      materialBlock.className = 'material-block position-relative';
+
+      const materialMenu = document.createElement('div');
+      materialMenu.className = 'material-menu position-absolute';
+      materialMenu.innerHTML = `
+        <i class="fas fa-edit" title="Editar" data-bs-toggle="modal" data-bs-target="#editModal"></i>
+        <i class="fas fa-trash-alt" title="Excluir" data-bs-toggle="modal" data-bs-target="#deleteModal"></i>
+      `;
+
+      const materialImage = document.createElement('img');
+      materialImage.src = 'placeholder.jpg';
+      materialImage.alt = 'Material';
+      materialImage.className = 'material-image';
+
+      const materialInfo = document.createElement('div');
+      materialInfo.className = 'material-info';
+      materialInfo.innerHTML = `
+        <h4>${name}</h4>
+        <p>Quantidade: ${quantity} unidades</p>
+      `;
+
+      materialBlock.appendChild(materialMenu);
+      materialBlock.appendChild(materialImage);
+      materialBlock.appendChild(materialInfo);
+
+      materialsContainer.appendChild(materialBlock);
+
+      // Fechar o modal
+      const modalElement = document.getElementById('newMaterialModal');
+      const modal = bootstrap.Modal.getInstance(modalElement);
+      modal.hide();
+
+      // Limpar o formulário
+      document.getElementById('new-material-form').reset();
+    } else {
+      alert('Por favor, preencha os campos obrigatórios!');
+    }
+  });
+    </script>
   </body>
 </html>
