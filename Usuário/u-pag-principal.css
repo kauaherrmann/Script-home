@@ -1,0 +1,392 @@
+/*---------- Conteúdo Principal ----------*/
+.flex-grow-1 {
+  margin-left: 180px; /* Alinhado com a largura do sidebar */
+  overflow-y: auto;
+  height: 100vh;
+  padding: 20px;
+  background-color: rgb(230, 228, 241);
+}
+
+/*---------- Configurações da página ----------*/
+html,
+body {
+  height: 100%; /* Define a altura para cobrir toda a tela */
+  margin: 0; /* Remove qualquer margem padrão do navegador */
+  overflow: hidden; /* Impede que a página possa ser rolada */
+  background-color: rgb(230, 228, 241); /* Define a cor de fundo */
+}
+
+/* Para notebooks e desktops com largura mínima de 1280px */
+@media (min-width: 1280px) {
+  body {
+    font-size: 16px; /* Define o tamanho da fonte para telas maiores que 1280px */
+  }
+}
+
+/* Para telas grandes (como 1920x1080) */
+@media (min-width: 1920px) {
+  body {
+    font-size: 18px; /* Aumenta o tamanho da fonte em telas maiores que 1920px */
+  }
+}
+
+/*---------- Menu lateral (Sidebar) ----------*/
+
+/* Container da logotipo */
+#sidebar .logo-container {
+  padding-top: 40px; /* Adiciona espaço acima da logotipo */
+  padding-left: 10px; /* Espaço interno à esquerda */
+  padding-right: 10px; /* Espaço interno à direita */
+  text-align: center; /* Centraliza o conteúdo horizontalmente */
+  margin-bottom: 30px; /* Espaço abaixo da logotipo */
+}
+
+/* Logotipo */
+#sidebar .logo {
+  width: 65px; /* Define o tamanho padrão */
+  height: auto;
+  transition: transform 0.5s ease; /* Adiciona uma transição suave ao passar o mouse */
+}
+/* Efeito de zoom ao passar o mouse */
+.logo:hover {
+  transform: scale(1.05); /* Aumenta o tamanho da imagem em 10% */
+}
+
+/* Barra lateral */
+#sidebar {
+  width: 180px; /* Define a largura fixa da barra lateral */
+  position: fixed; /* Mantém a barra lateral fixa na tela */
+  height: 100vh; /* Altura que cobre toda a janela de visualização */
+  background-color: rgb(23, 23, 23) !important; /* Cor de fundo da barra */
+  overflow: hidden; /* Oculta conteúdo que ultrapasse os limites da barra */
+  white-space: nowrap; /* Evita quebra de linha no conteúdo */
+  transition: none; /* Remove animações de transição */
+}
+
+/* Cada item de navegação */
+#sidebar .nav-item {
+  display: flex; /* Usa layout flexível */
+  align-items: center; /* Centraliza o conteúdo verticalmente */
+  height: 60px; /* Define uma altura uniforme para os itens */
+}
+
+/* Links de navegação */
+#sidebar .nav-link {
+  display: flex; /* Usa layout flexível */
+  align-items: center; /* Centraliza o texto e os ícones verticalmente */
+  width: 100%; /* Preenche toda a largura do container */
+  height: 60px; /* Altura fixa para consistência */
+  text-decoration: none; /* Remove o sublinhado dos links */
+  color: rgb(166, 130, 138); /* Define a cor padrão do texto */
+  padding-left: 20px; /* Espaço interno à esquerda */
+  box-sizing: border-box; /* Inclui padding e bordas no tamanho total do elemento */
+}
+
+/* Ícones nos links */
+#sidebar i {
+  font-size: 1.25rem; /* Tamanho do ícone */
+  color: rgb(166, 130, 138); /* Cor do ícone */
+  margin-right: 10px; /* Espaço entre o ícone e o texto */
+  min-width: 24px; /* Largura mínima para alinhamento uniforme */
+  text-align: left; /* Alinha o ícone à esquerda */
+  margin-left: 10px; /* Espaço à esquerda do ícone */
+}
+
+/*---------- Estilo para Item Ativo ----------*/
+
+/* Estilo do link ativo */
+#sidebar .nav-link.active {
+  background-color: rgb(32, 32, 32); /* Define a cor de fundo do item ativo */
+  color: rgb(214, 169, 178); /* Define a cor do texto no item ativo */
+  box-shadow: 0px 6px 8px rgba(13, 11, 11, 0.3); /* Adiciona sombra ao item ativo */
+  transition: box-shadow 0.2s ease-in-out; /* Animação suave ao alternar entre ativo/inativo */
+}
+
+/* Ícone no estado ativo */
+#sidebar .nav-link.active i {
+  color: rgb(214, 169, 178); /* Altera a cor do ícone no estado ativo */
+}
+
+/* Texto no estado ativo */
+#sidebar .nav-link.active .nav-text {
+  color: rgb(214, 169, 178); /* Altera a cor do texto no estado ativo */
+}
+/* Estilo para Hover nos Links de Navegação */
+#sidebar .nav-link:hover {
+  color: rgb(214, 169, 178); /* Cor do texto ao passar o mouse */
+  transition: all 0.2s ease-in-out; /* Animação suave no hover */
+}
+
+/* Alterar cor do ícone no hover */
+#sidebar .nav-link:hover i {
+  color: rgb(214, 169, 178); /* Cor do ícone ao passar o mouse */
+}
+
+
+/*---------- Lista de Clientes ----------*/
+.accordion-button {
+  display: flex;
+  justify-content: space-between; /* Distribui os itens do lado esquerdo para o direito */
+  align-items: center; /* Alinha os itens verticalmente */
+  width: 100%; /* Garante que ocupe toda a largura */
+  padding: 1rem;
+  background-color: rgb(23, 23, 23);
+  border: none; /* Remover borda padrão, se necessário */
+  color: rgb(214, 169, 178);
+}
+
+/* Remover a cor de fundo escura ao expandir o acordeão */
+.accordion-button:not(.collapsed) {
+  background-color: rgb(23, 23, 23); /* Cor de fundo quando expandido */
+}
+
+/* Remover a setinha do acordeão */
+.accordion-button::after {
+  display: none;
+}
+
+.accordion-body {
+  padding: 1rem;
+  max-height: 300px;
+  overflow-y: auto;
+  background-color: rgb(32, 32, 32);
+  color: rgb(214, 169, 178);
+}
+.accordion-body img {
+  width: 100%; /* Ajusta a largura da imagem para ocupar todo o container */
+  max-width: 115px; /* Define um limite máximo de largura */
+  height: 115px; /* Define uma altura fixa */
+  object-fit: cover; /* Corta a imagem se necessário para preencher o espaço sem distorção */
+  border-radius: 50%; /* Borda arredondada para a imagem */
+  margin-left: 30px;
+}
+
+.client-info {
+  padding: 0.5rem 0;
+  white-space: nowrap;
+  text-align: left;
+  flex-grow: 1;
+}
+
+.accordion-button .client-info {
+  display: flex;
+  justify-content: center; /* Centraliza os textos dentro da área do botão */
+  width: 100%; /* Garante que ocupe a largura do botão */
+  margin-left: 1px; /* Ajuste esse valor conforme necessário */
+  gap: 7px; /* distanci entre resposta e dois pontos */
+}
+/* Remove o sublinhado azul e a borda ao focar ou clicar no botão do acordeão */
+.accordion-button:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+/* Remove a cor azul de links no acordeão */
+.accordion-button:active,
+.accordion-button:focus {
+  text-decoration: none;
+  color: rgb(214, 169, 178); /* Mantém a cor do texto normal */
+}
+
+/* Remove a cor azul das letras quando o acordeão está expandido */
+.accordion-button:not(.collapsed) {
+  color: rgb(214, 169, 178); /* Mantém a cor original do texto */
+}
+
+/*---------- BOTÃO DE ACICIONAR CLIENTE ------------*/
+.custom-btn {
+  background-color: rgb(23, 23, 23); /* Cor de fundo personalizada */
+  color: rgb(166, 130, 138); /* Cor do texto personalizada */
+  border: none; /* Remover a borda padrão */
+  padding: 10px 20px; /* Espaçamento interno */
+  border-radius: 4px; /* Bordas arredondadas */
+  font-size: 16px; /* Tamanho da fonte */
+  font-weight: bold; /* Negrito */
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Espaço entre o ícone e o texto */
+  transition: transform 0.1s ease, box-shadow 0.2s ease, background-color 0.0s ease;
+  cursor: pointer; /* Cursor pointer ao passar o mouse */
+  margin-bottom: 10px;
+}
+
+/* Efeito de hover */
+.custom-btn:hover {
+  background-color: rgb(32, 32, 32); /* Cor de fundo ao passar o mouse */
+  color: rgb(214, 169, 178); /* Cor do texto ao passar o mouse */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra suave */
+ 
+}
+
+/* Efeito de foco (quando o botão é focado, como no teclado) */
+.custom-btn:focus {
+  outline: none; /* Remove o outline padrão */
+  box-shadow: 0 0 10px rgba(214, 169, 178, 0.5); /* Sombra de foco */
+  background-color: rgb(37, 37, 37); /* Cor de fundo ao focar */
+  color: rgb(214, 169, 178); /* Cor do texto ao focar */
+}
+
+/* Ícone do botão */
+.custom-btn i {
+  font-size: 20px; /* Tamanho do ícone */
+  transition: transform 0.3s ease; /* Animação de transformação do ícone */
+}
+
+/* Efeito de hover no ícone */
+.custom-btn:hover i {
+  transform: rotate(90deg); /* Gira o ícone ao passar o mouse */
+}
+
+/*--------------------------- FIM ----------------------------*/
+
+/*--------------Cadastro de Cliente - Estilo Ajustado--------------*/
+
+/* Botão de Cancelar */
+#cancelarClienteBtn {
+  background-color: rgb(53, 34, 34); /* Cor de fundo escura */
+  color: rgb(214, 169, 178); /* Texto rosa claro */
+  border: none; /* Remove borda padrão */
+  border-radius: 4px; /* Borda arredondada */
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+#cancelarClienteBtn:hover {
+  background-color: rgb(128, 2, 2); /* Cinza escuro */
+}
+
+/* Botão de Salvar */
+#salvarClienteBtn {
+  background-color: rgb(73, 54, 58); /* Cor de fundo escura */
+  color: rgb(214, 169, 178); /* Texto rosa claro */
+  border: none; /* Remove borda padrão */
+  border-radius: 4px; /* Borda arredondada */
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#salvarClienteBtn:hover {
+  background-color: rgb(166, 130, 138); /* Rosa mais forte */
+}
+
+/* Tornar o modal estático e remover rolagem */
+.modal-lg {
+  max-width: 70%; /* Ajusta a largura */
+}
+
+.modal-content {
+  height: 90vh; /* Define a altura do modal como 90% da tela */
+  background-color: rgb(23, 23, 23); /* Cor de fundo do modal */
+  color: rgb(214, 169, 178); /* Texto branco */
+  border-radius: 8px; /* Borda arredondada */
+  overflow: hidden; /* Remove rolagem externa */
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5); /* Adiciona sombra ao modal */
+}
+
+/* Cabeçalho do modal */
+.modal-header {
+  background-color: rgb(23, 23, 23); /* Fundo escuro */
+  border-bottom: 1px solid rgb(32, 32, 32); /* Linha de divisão */
+  padding: 20px;
+}
+
+.modal-header .modal-title {
+  color: rgb(214, 169, 178); /* Rosa claro */
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.modal-header .btn-close {
+  color: rgb(214, 169, 178); /* Ícone de fechar branco */
+}
+
+/* Corpo do modal com margem inferior para os botões */
+.modal-body {
+  flex-grow: 1;
+  overflow-y: auto; /* Habilita rolagem interna */
+  padding: 20px;
+  background-color: rgb(23, 23, 23); /* Fundo do corpo */
+}
+
+/* Campos do formulário */
+.modal-body .form-label {
+  color: rgb(214, 169, 178); /* Rosa claro para labels */
+  font-weight: bold;
+}
+
+.modal-body .form-control {
+  background-color: rgb(32, 32, 32); /* Fundo dos inputs */
+  color: rgb(214, 169, 178); /* Texto branco */
+  border: 1px solid rgb(23, 23, 23); /* Bordas cinza escuro */
+  border-radius: 4px; /* Borda arredondada */
+}
+
+.modal-body .form-control:focus {
+  border-color: rgb(214, 169, 178); /* Rosa claro no foco */
+  box-shadow: 0 0 1px rgb(166, 130, 138);
+}
+
+/* Rodapé fixo na parte inferior */
+.modal-footer {
+  flex-shrink: 0;
+  padding: 20px;
+  border-top: 1px solid rgb(32, 32, 32); /* Linha de divisão */
+  background-color: rgb(23, 23, 23); /* Fundo escuro */
+}
+/* Estiliza a barra de rolagem no modal */
+.modal-body::-webkit-scrollbar {
+  width: 10px; /* Largura da barra */
+}
+
+.modal-body::-webkit-scrollbar-thumb {
+  background-color: rgb(214, 169, 178); /* Cor do "polegar" (parte rolável) */
+  border-radius: 5px; /* Borda arredondada */
+}
+
+.modal-body::-webkit-scrollbar-thumb:hover {
+  background-color: rgb(166, 130, 138); /* Cor no hover */
+}
+
+.modal-body::-webkit-scrollbar-track {
+  background-color: rgb(32, 32, 32); /* Cor do "trilho" (fundo da scrollbar) */
+  border-radius: 5px; /* Borda arredondada */
+}
+
+/* Estilizar a cor do botão de fechar */
+.btn-close {
+  background-color: transparent; /* Remove o fundo padrão */
+  filter: invert(30%) sepia(25%) saturate(150%) hue-rotate(350deg) brightness(120%) contrast(100%);
+  /* Ajusta o filtro para um tom de rosa claro */
+}
+
+/* Alterar a cor ao passar o mouse */
+.btn-close:hover {
+  filter: invert(30%) sepia(25%) saturate(150%) hue-rotate(350deg) brightness(110%) contrast(100%);
+  /* Torna a cor mais escura no hover */
+  transition: filter 0.3s ease; /* Transição suave */
+}
+
+/*--- ICONES DE EDIÇÂO E EXCLUSÂO ---*/
+/* Estilo para o botão de edição */
+.btn-edit {
+  color: rgb(214, 169, 178); /* Azul padrão */
+  font-size: 1.2rem; /* Tamanho maior */
+  transition: transform 0.3s ease, color 0.3s ease;
+  cursor: pointer;
+}
+
+.btn-edit:hover {
+  color: rgb(155, 121, 129); /* Azul mais escuro ao passar o mouse */
+}
+
+/* Estilo para o botão de exclusão */
+.btn-delete {
+  color: rgb(214, 169, 178) !important; /* Vermelho padrão */
+  font-size: 1.2rem;
+  transition: transform 0.3s ease, color 0.3s ease;
+  cursor: pointer;
+}
+
+.btn-delete:hover {
+  color: #7a262f !important; /* Vermelho mais escuro ao passar o mouse */
+}

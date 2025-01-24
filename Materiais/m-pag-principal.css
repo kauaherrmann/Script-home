@@ -1,0 +1,320 @@
+/*---------- Configurações da página ----------*/
+html,
+body {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  background-color: rgb(230, 228, 241);
+}
+
+/* Para notebooks e desktops com largura mínima de 1280px */
+@media (min-width: 1280px) {
+  body {
+    font-size: 16px;
+  }
+}
+
+/* Para telas grandes (como 1920x1080) */
+@media (min-width: 1920px) {
+  body {
+    font-size: 18px;
+  }
+}
+/* Ajuste da área de conteúdo para respeitar a barra lateral */
+.flex-grow-1 {
+  margin-left: 180px; /* Alinhado com a largura do sidebar */
+  overflow-y: auto;
+  height: 100vh;
+  padding: 20px;
+  background-color: rgb(230, 228, 241);
+}
+
+/*---------- Menu lateral (Sidebar) ----------*/
+
+/* Container da logotipo */
+#sidebar .logo-container {
+  padding-top: 40px;
+  padding-left: 10px;
+  padding-right: 10px;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+/* Logotipo */
+#sidebar .logo {
+  width: 65px;
+  height: auto;
+  transition: transform 0.5s ease;
+}
+
+/* Efeito de zoom ao passar o mouse */
+.logo:hover {
+  transform: scale(1.05);
+}
+
+/* Barra lateral */
+#sidebar {
+  width: 180px;
+  position: fixed;
+  height: 100vh;
+  background-color: rgb(23, 23, 23) !important;
+  overflow: hidden;
+  white-space: nowrap;
+  transition: none;
+}
+
+/* Cada item de navegação */
+#sidebar .nav-item {
+  display: flex;
+  align-items: center;
+  height: 60px;
+}
+
+/* Links de navegação */
+#sidebar .nav-link {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 60px;
+  text-decoration: none;
+  color: rgb(166, 130, 138);
+  padding-left: 20px;
+  box-sizing: border-box;
+}
+
+/* Ícones nos links */
+#sidebar i {
+  font-size: 1.25rem;
+  color: rgb(166, 130, 138);
+  margin-right: 10px;
+  min-width: 24px;
+  text-align: left;
+  margin-left: 10px;
+}
+
+/*---------- Estilo para Item Ativo ----------*/
+
+/* Estilo do link ativo */
+#sidebar .nav-link.active {
+  background-color: rgb(32, 32, 32);
+  color: rgb(214, 169, 178);
+  box-shadow: 0px 6px 8px rgba(13, 11, 11, 0.3);
+  transition: box-shadow 0.2s ease-in-out;
+}
+
+/* Ícone no estado ativo */
+#sidebar .nav-link.active i {
+  color: rgb(214, 169, 178);
+}
+
+/* Texto no estado ativo */
+#sidebar .nav-link.active .nav-text {
+  color: rgb(214, 169, 178);
+}
+
+/* Estilo para Hover nos Links de Navegação */
+#sidebar .nav-link:hover {
+  color: rgb(214, 169, 178);
+  transition: all 0.2s ease-in-out;
+}
+
+/* Alterar cor do ícone no hover */
+#sidebar .nav-link:hover i {
+  color: rgb(214, 169, 178);
+}
+
+/*------------ catalogo de materiais ---------*/
+.material-block {
+  position: relative;
+  width: 250px;
+  padding: 30px;
+  border: 1px solid rgb(32, 32, 32);
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: rgb(23, 23, 23);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  margin-top: 20px;
+}
+
+/* Efeito ao passar o mouse */
+.material-block:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transform: scale(1.01); /* Aumenta o tamanho do container */
+}
+
+/* Ícones na parte superior direita */
+.material-menu {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  gap: 8px;
+  visibility: hidden; /* Esconde os ícones inicialmente */
+  opacity: 0; /* Torna os ícones invisíveis inicialmente */
+  transition: opacity 0.3s ease, visibility 0s linear 0.3s; /* Transição de opacidade */
+}
+
+.material-block:hover .material-menu {
+  visibility: visible; /* Torna os ícones visíveis */
+  opacity: 1; /* Torna os ícones visíveis com efeito */
+  transition: opacity 0.3s ease, visibility 0s linear 0s; /* Transição quando o mouse está sobre o bloco */
+}
+
+.material-menu i {
+  font-size: 16px;
+  color: rgb(166, 130, 138);
+  cursor: pointer;
+}
+
+.material-menu i:hover {
+  color: rgb(214, 169, 178);
+}
+
+/* Imagem do material */
+.material-image {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+}
+
+/* Informações do material */
+.material-info {
+  padding: 10px;
+  text-align: center;
+}
+
+/* Efeito de cor no título e descrição ao passar o mouse */
+.material-block:hover .material-info h4,
+.material-block:hover .material-info p {
+  color: rgb(214, 169, 178); /* Cor do texto ao passar o mouse */
+}
+
+.material-info h4 {
+  font-size: 16px;
+  margin-bottom: 5px;
+  color: rgb(166, 130, 138); /* Cor inicial do título */
+}
+
+.material-info p {
+  font-size: 14px;
+  color: rgb(166, 130, 138); /* Cor inicial da descrição */
+}
+/*------------- fim -------------*/
+
+/*----------------- Botao de adicionar produto --------------*/
+#btn-create-product {
+  background-color: rgb(23, 23, 23); /* Cor de fundo personalizada */
+  color: rgb(166, 130, 138); /* Cor do texto personalizada */
+  border: none; /* Remover a borda padrão */
+  padding: 10px 20px; /* Espaçamento interno */
+  border-radius: 6px; /* Bordas arredondadas */
+  font-size: 16px; /* Tamanho da fonte */
+  font-weight: bold; /* Negrito */
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Espaço entre o ícone e o texto */
+  transition: transform 0.1s ease, box-shadow 0.2s ease, background-color 0.0s ease;
+  cursor: pointer; /* Cursor pointer ao passar o mouse */
+}
+
+/* Efeito de hover */
+#btn-create-product:hover {
+  background-color: rgb(32, 32, 32); /* Cor de fundo ao passar o mouse */
+  color: rgb(214, 169, 178); /* Cor do texto ao passar o mouse */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra suave */
+ 
+}
+
+/* Efeito de foco (quando o botão é focado, como no teclado) */
+#btn-create-product:focus {
+  outline: none; /* Remover outline padrão */
+  box-shadow: 0 0 10px rgba(214, 169, 178, 0.5); /* Sombra de foco */
+  background-color: rgb(32, 32, 32); /* Cor de fundo ao focar */
+  color: rgb(214, 169, 178); /* Cor do texto ao focar */
+}
+
+/* Ícone do botão */
+#btn-create-product i {
+  font-size: 20px; /* Tamanho do ícone */
+  transition: transform 0.3s ease; /* Animação de transformação do ícone */
+}
+
+/* Efeito de hover no ícone */
+#btn-create-product:hover i {
+  transform: rotate(90deg); /* Gira o ícone ao passar o mouse */
+}
+
+/*------------ fim --------------*/
+
+/*--------- MODAL DE EDIÇÂO -----------*/
+.modal-content {
+  background-color: rgb(23, 23, 23); /* Cor de fundo do modal */
+  border-radius: 10px; /* Bordas arredondadas */
+  color: rgb(214, 169, 178); /* Cor do texto */
+}
+
+.modal-header {
+  border-bottom: 1px solid rgb(23, 23, 23); /* Borda inferior do cabeçalho */
+  background-color: rgb(32, 32, 32); /* Cor de fundo do cabeçalho */
+}
+
+.modal-header .modal-title {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.modal-header .btn-close {
+  color: rgb(214, 169, 178); /* Cor do ícone de fechar */
+}
+
+/* Estilo para os inputs e textarea */
+.form-control {
+  background-color: rgb(32, 32, 32); /* Cor de fundo dos campos */
+  color: rgb(166, 130, 138); /* Cor do texto dos campos */
+  border: 1px solid rgb(32, 32, 32); /* Borda dos campos */
+  border-radius: 5px;
+  margin-bottom: 15px;
+}
+
+/* Foco nos inputs */
+.form-control:focus {
+  border-color: rgb(166, 130, 138); /* Cor da borda no foco */
+  background-color: rgb(32, 32, 32); /* Cor de fundo no foco */
+  box-shadow: 0 0 1px rgb(166, 130, 138); /* Sombra no foco */
+  color: rgb(166, 130, 138);
+}
+
+/* Botões do Modal */
+.modal-footer .btn {
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.modal-footer .btn-primary {
+  background-color: rgb(130, 167, 232); /* Cor do botão de salvar */
+  border-color: rgb(130, 167, 232);
+}
+
+.modal-footer .btn-primary:hover {
+  background-color: rgb(30, 96, 189); /* Cor do botão de salvar ao passar o mouse */
+}
+
+.modal-footer .btn-secondary {
+  background-color: rgb(60, 60, 60); /* Cor do botão secundário */
+  border-color: rgb(60, 60, 60);
+}
+
+.modal-footer .btn-secondary:hover {
+  background-color: rgb(40, 40, 40); /* Cor do botão secundário ao passar o mouse */
+}
+
+.modal-footer .btn-danger {
+  background-color: rgb(244, 67, 54); /* Cor do botão de excluir */
+  border-color: rgb(244, 67, 54);
+}
+
+.modal-footer .btn-danger:hover {
+  background-color: rgb(204, 53, 44); /* Cor do botão de excluir ao passar o mouse */
+}
+/*-------------- FIM ----------------*/
