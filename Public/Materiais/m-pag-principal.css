@@ -172,10 +172,21 @@ body {
 
 /* Imagem do material */
 .material-image {
-  width: 100%;
-  height: 120px;
+  width: 50px !important;
+  height: 50px !important;
   object-fit: cover;
+  border-radius: 8px;
+  overflow: hidden !important;
 }
+
+.card-image {
+  width: 50px !important; /* Defina a largura do quadrado */
+  height: 50px !important; /* Defina a altura igual à largura para manter o formato quadrado */
+  object-fit: cover; /* Faz a imagem se ajustar sem distorcer */
+  border-radius: 8px; /* Opcional: para cantos arredondados */
+  overflow: hidden; /* Garante que nada exceda os limites do quadrado */
+}
+
 
 /* Informações do material */
 .material-info {

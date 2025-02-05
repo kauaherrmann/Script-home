@@ -92,33 +92,30 @@
         <button type="button" class="btn-close" style="color: rgb(166, 130, 138);" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form id="formCadastroCliente">
+        <form id="formCadastroCliente" enctype="multipart/form-data">
           <div class="row">
             <!-- Coluna 1 -->
             <div class="col-md-6">
               <div class="mb-3">
                 <label for="nomeCliente" class="form-label">Nome *</label>
-                <input type="text" class="form-control" id="nomeCliente" required>
+                <input type="text" class="form-control" id="nomeCliente" name="nome" required>
               </div>
               <div class="mb-3">
                 <label for="cpfCliente" class="form-label">CPF *</label>
-                <input type="text" class="form-control" id="cpfCliente" required>
+                <input type="text" class="form-control" id="cpfCliente" name="cpf" required>
               </div>
               <div class="mb-3">
                 <label for="emailCliente" class="form-label">Email *</label>
-                <input type="email" class="form-control" id="emailCliente" required>
+                <input type="email" class="form-control" id="emailCliente" name="email" required>
               </div>
               <div class="mb-3">
                 <label for="dataNascimento" class="form-label">Data de Nascimento *</label>
-                <input type="date" class="form-control" id="dataNascimento" required>
+                <input type="date" class="form-control" id="dataNascimento" name="dataNascimento" required>
               </div>
-
-              <!-- Adicionando o campo para upload da imagem -->
               <div class="mb-3">
                 <label for="imagemCliente" class="form-label">Imagem do Cliente</label>
-                <input type="file" class="form-control" id="imagemCliente" accept="image/*">
+                <input type="file" class="form-control" id="imagemCliente" name="imagemCliente" accept="image/*">
               </div>
-              <!-- Preview da imagem -->
               <div id="imagemPreview" style="display: none;">
                 <label class="form-label">Preview da Imagem</label>
                 <img id="imagemPreviewImg" src="" alt="Imagem do Cliente" style="max-width: 100%; max-height: 200px;">
@@ -128,41 +125,39 @@
             <div class="col-md-6">
               <div class="mb-3">
                 <label for="parentescoCliente" class="form-label">Nome de Parentesco</label>
-                <input type="text" class="form-control" id="parentescoCliente">
+                <input type="text" class="form-control" id="parentescoCliente" name="parentescoNome">
               </div>
               <div class="mb-3">
                 <label for="numeroParentesco" class="form-label">Número de Parentesco</label>
-                <input type="text" class="form-control" id="numeroParentesco">
+                <input type="text" class="form-control" id="numeroParentesco" name="parentescoNumero">
               </div>
               <div class="mb-3">
                 <label for="remedioContinuo" class="form-label">Remédio Contínuo</label>
-                <input type="checkbox" class="form-check-input" id="remedioContinuoCheckbox">
+                <input type="checkbox" class="form-check-input" id="remedioContinuoCheckbox" name="remedioContinuo">
               </div>
               <div class="mb-3" id="remedioContinuoDetails" style="display: none;">
                 <label for="nomeRemedio" class="form-label">Nome do Remédio</label>
-                <input type="text" class="form-control" id="nomeRemedio">
+                <input type="text" class="form-control" id="nomeRemedio" name="remedioNome">
               </div>
               <div class="mb-3" id="remedioContinuoDetails" style="display: none;">
                 <label for="descricaoRemedio" class="form-label">Descrição do Remédio</label>
-                <textarea class="form-control" id="descricaoRemedio"></textarea>
+                <textarea class="form-control" id="descricaoRemedio" name="remedioDescricao"></textarea>
               </div>
-
               <div class="mb-3">
                 <label for="problemasSaudeCheckbox" class="form-label">Problemas de Saúde</label>
-                <input type="checkbox" class="form-check-input" id="problemasSaudeCheckbox">
+                <input type="checkbox" class="form-check-input" id="problemasSaudeCheckbox" name="problemasSaude">
               </div>
               <div class="mb-3" id="problemasSaudeDetails" style="display: none;">
                 <label for="problemasSaude" class="form-label">Descrição de Problemas de Saúde</label>
-                <input type="text" class="form-control" id="problemasSaude">
+                <input type="text" class="form-control" id="problemasSaude" name="problemasSaudeDescricao">
               </div>
-
               <div class="mb-3">
                 <label for="alergiaDoencaCheckbox" class="form-label">Alergia ou Doença</label>
-                <input type="checkbox" class="form-check-input" id="alergiaDoencaCheckbox">
+                <input type="checkbox" class="form-check-input" id="alergiaDoencaCheckbox" name="alergiaDoenca">
               </div>
               <div class="mb-3" id="alergiaDoencaDetails" style="display: none;">
                 <label for="alergiaDoenca" class="form-label">Descrição de Alergia ou Doença</label>
-                <input type="text" class="form-control" id="alergiaDoenca">
+                <input type="text" class="form-control" id="alergiaDoenca" name="alergiaDoencaDescricao">
               </div>
             </div>
           </div>
@@ -270,130 +265,189 @@
     <!-- Bootstrap JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
     <script>
-      // Obtém os checkboxes e os campos de detalhes
-      const remedioContinuoCheckbox = document.getElementById('remedioContinuoCheckbox');
-      const remedioContinuoDetails = document.getElementById('remedioContinuoDetails');
-      const problemasSaudeCheckbox = document.getElementById('problemasSaudeCheckbox');
-      const problemasSaudeDetails = document.getElementById('problemasSaudeDetails');
-      const alergiaDoencaCheckbox = document.getElementById('alergiaDoencaCheckbox');
-      const alergiaDoencaDetails = document.getElementById('alergiaDoencaDetails');
+      document.addEventListener("DOMContentLoaded", function () {
+        // Obtém os checkboxes e os campos de detalhes
+        const remedioContinuoCheckbox = document.getElementById("remedioContinuoCheckbox");
+        const remedioContinuoDetails = document.getElementById("remedioContinuoDetails");
+        const problemasSaudeCheckbox = document.getElementById("problemasSaudeCheckbox");
+        const problemasSaudeDetails = document.getElementById("problemasSaudeDetails");
+        const alergiaDoencaCheckbox = document.getElementById("alergiaDoencaCheckbox");
+        const alergiaDoencaDetails = document.getElementById("alergiaDoencaDetails");
     
-      // Mostrar ou esconder campos baseados nos checkboxes
-      remedioContinuoCheckbox.addEventListener('change', function () {
-        remedioContinuoDetails.style.display = this.checked ? 'block' : 'none';
-      });
+        // Manter estado dos checkboxes ao recarregar
+        function manterEstadoCheckbox(checkbox, details) {
+          checkbox.addEventListener("change", function () {
+            details.style.display = this.checked ? "block" : "none";
+            localStorage.setItem(checkbox.id, this.checked);
+          });
     
-      problemasSaudeCheckbox.addEventListener('change', function () {
-        problemasSaudeDetails.style.display = this.checked ? 'block' : 'none';
-      });
-    
-      alergiaDoencaCheckbox.addEventListener('change', function () {
-        alergiaDoencaDetails.style.display = this.checked ? 'block' : 'none';
-      });
-    
-      // Exibição do preview da imagem selecionada
-      const imagemClienteInput = document.getElementById('imagemCliente');
-      const imagemPreview = document.getElementById('imagemPreview');
-      const imagemPreviewImg = document.getElementById('imagemPreviewImg');
-    
-      imagemClienteInput.addEventListener('change', function () {
-        const file = imagemClienteInput.files[0];
-        if (file) {
-          const reader = new FileReader();
-          reader.onload = function (e) {
-            imagemPreviewImg.src = e.target.result;
-            imagemPreview.style.display = 'block';
-          };
-          reader.readAsDataURL(file);
+          if (localStorage.getItem(checkbox.id) === "true") {
+            checkbox.checked = true;
+            details.style.display = "block";
+          }
         }
-      });
     
-      // Função para adicionar um novo cliente ao accordion
-      document.getElementById('salvarClienteBtn').addEventListener('click', function () {
-  // Obtenha os dados do formulário
-  const nome = document.getElementById('nomeCliente').value;
-  const cpf = document.getElementById('cpfCliente').value;
-  const email = document.getElementById('emailCliente').value;
-  const dataNascimento = document.getElementById('dataNascimento').value;
-  const parentesco = document.getElementById('parentescoCliente').value;
-  const numeroParentesco = document.getElementById('numeroParentesco').value;
-  const remedioContinuo = remedioContinuoCheckbox.checked;
-  const remedioNome = remedioContinuo ? document.getElementById('nomeRemedio').value : '';
-  const remedioDescricao = remedioContinuo ? document.getElementById('descricaoRemedio').value : '';
-  const problemasSaude = problemasSaudeCheckbox.checked;
-  const problemasSaudeDescricao = problemasSaude ? document.getElementById('problemasSaude').value : '';
-  const alergiaDoenca = alergiaDoencaCheckbox.checked;
-  const alergiaDoencaDescricao = alergiaDoenca ? document.getElementById('alergiaDoenca').value : '';
+        manterEstadoCheckbox(remedioContinuoCheckbox, remedioContinuoDetails);
+        manterEstadoCheckbox(problemasSaudeCheckbox, problemasSaudeDetails);
+        manterEstadoCheckbox(alergiaDoencaCheckbox, alergiaDoencaDetails);
+    
+        // Exibição do preview da imagem selecionada
+        const imagemClienteInput = document.getElementById("imagemCliente");
+        const imagemPreview = document.getElementById("imagemPreview");
+        const imagemPreviewImg = document.getElementById("imagemPreviewImg");
+    
+        imagemClienteInput.addEventListener("change", function () {
+          const file = imagemClienteInput.files[0];
+          if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+              imagemPreviewImg.src = e.target.result;
+              imagemPreview.style.display = "block";
+            };
+            reader.readAsDataURL(file);
+          }
+        });
+    
+        // Adicionar novo cliente ao accordion
+        document.addEventListener("DOMContentLoaded", function () {
+  const form = document.getElementById("formCadastroCliente");
+  const salvarClienteBtn = document.getElementById("salvarClienteBtn");
 
-  // Crie um novo ID único para o accordion
-  const id = new Date().getTime();
-  const headingId = 'heading' + id;
-  const collapseId = 'collapse' + id;
+  // Função para carregar os clientes e exibi-los no site
+  async function carregarUsuarios() {
+    try {
+      const response = await fetch("/api/usuarios");
+      if (!response.ok) throw new Error("Erro ao carregar usuários.");
+      
+      const usuarios = await response.json();
+      const usuariosList = document.getElementById("accordionClientes");
+      
+      usuariosList.innerHTML = ""; // Limpa os usuários antes de adicionar novos
+      
+      usuarios.forEach(adicionarClienteAoAccordion);
+    } catch (error) {
+      console.error("Erro ao carregar usuários:", error);
+    }
+  }
 
-  // Crie o novo HTML do item do accordion
-const newAccordionItem = `
-  <div class="accordion-item">
-    <h2 class="accordion-header" id="${headingId}">
-      <button
-        class="accordion-button collapsed"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#${collapseId}"
-        aria-expanded="false"
-        aria-controls="${collapseId}"
-      >
-        <div class="d-flex justify-content-between align-items-center w-100">
-          <div class="client-info"><strong>Nome:</strong> ${nome}</div>
-          <div class="client-info"><strong>Email:</strong> ${email}</div>
-          <div class="client-info"><strong>CPF:</strong> ${cpf}</div>
-        </div>
-      </button>
-    </h2>
-    <div
-      id="${collapseId}"
-      class="accordion-collapse collapse"
-      aria-labelledby="${headingId}"
-      data-bs-parent="#accordionClientes"
-    >
-      <div class="accordion-body">
-        <div class="row">
-          <div class="col-md-4">
-            <img src="${imagemPreviewImg.src}" alt="Imagem do Cliente" class="img-fluid" />
+  // Função para adicionar cliente na interface
+  function adicionarClienteAoAccordion(usuario) {
+    const id = usuario.id;
+    const headingId = "heading" + id;
+    const collapseId = "collapse" + id;
+
+    const newAccordionItem = `
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="${headingId}">
+          <button class="accordion-button collapsed" type="button"
+            data-bs-toggle="collapse" data-bs-target="#${collapseId}"
+            aria-expanded="false" aria-controls="${collapseId}">
+            <strong>${usuario.nome}</strong> - ${usuario.email} - ${usuario.cpf}
+          </button>
+        </h2>
+        <div id="${collapseId}" class="accordion-collapse collapse"
+          aria-labelledby="${headingId}" data-bs-parent="#accordionClientes">
+          <div class="accordion-body">
+            <p><strong>Data de Nascimento:</strong> ${usuario.dataNascimento}</p>
+            <p><strong>Parentesco:</strong> ${usuario.parentescoNome} - ${usuario.parentescoNumero}</p>
+            <img src="/Uploads/${usuario.imagemCliente}" alt="Imagem do Cliente" class="img-fluid" />
+            <button class="btn btn-danger btn-delete" data-id="${id}">Excluir</button>
           </div>
-          <div class="col-md-4">
-            <p><strong>Data de Nascimento:</strong> ${dataNascimento}</p>
-            <p><strong>Nome de Parentesco:</strong> ${parentesco}</p>
-            <p><strong>Número de Parentesco:</strong> ${numeroParentesco}</p>
-          </div>
-          <div class="col-md-4">
-            <p><strong>Remédio Contínuo:</strong> ${remedioContinuo ? 'Sim - ' + remedioNome + ' (' + remedioDescricao + ')' : 'Não'}</p>
-            <p><strong>Problemas de Saúde:</strong> ${problemasSaude ? 'Sim - ' + problemasSaudeDescricao : 'Não'}</p>
-            <p><strong>Alergia ou Doença:</strong> ${alergiaDoenca ? 'Sim - ' + alergiaDoencaDescricao : 'Não'}</p>
-          </div>
-        </div>
-        <div class="d-flex justify-content-end mt-3">
-          <i class="fa fa-pen me-3 btn-edit" title="Editar"></i>
-          <i class="fa fa-trash text-danger btn-delete" title="Excluir"></i>
         </div>
       </div>
-    </div>
-  </div>
-`;
+    `;
 
+    document.getElementById("accordionClientes").insertAdjacentHTML("beforeend", newAccordionItem);
+    adicionarEventosExcluir();
+  }
 
-  // Adicione o novo item ao final do accordion
-  document.getElementById('accordionClientes').insertAdjacentHTML('beforeend', newAccordionItem);
+  // Evento de clique no botão de salvar cliente
+  salvarClienteBtn.addEventListener("click", async function (event) {
+  event.preventDefault();
 
-  // Feche o modal
-  const modal = bootstrap.Modal.getInstance(document.getElementById('clienteModal'));
-  modal.hide();
+  const formData = new FormData(form);
 
-  // Limpar o formulário após salvar
-  document.getElementById('formCadastroCliente').reset();
-  imagemPreview.style.display = 'none';
+  try {
+    const response = await fetch("/api/usuarios", {
+      method: "POST",
+      body: formData,
+    });
+
+    const responseData = await response.json();
+    console.log("Resposta do servidor:", responseData); // Log da resposta
+
+    if (!response.ok) {
+      throw new Error(responseData.message || "Erro ao cadastrar cliente.");
+    }
+
+    alert("Cliente cadastrado com sucesso!");
+    form.reset();
+    carregarUsuarios(); // Atualiza a lista de usuários
+  } catch (error) {
+    console.error("Erro no cadastro:", error);
+    alert(error.message);
+  }
 });
 
+  // Função para excluir cliente
+  function adicionarEventosExcluir() {
+    document.querySelectorAll(".btn-delete").forEach((btn) => {
+      btn.addEventListener("click", async function () {
+        const id = this.getAttribute("data-id");
+
+        try {
+          const response = await fetch(`/api/usuarios/${id}`, {
+            method: "DELETE",
+          });
+
+          if (!response.ok) {
+            throw new Error("Erro ao excluir cliente.");
+          }
+
+          carregarUsuarios();
+        } catch (error) {
+          console.error("Erro ao excluir:", error);
+          alert("Erro ao excluir cliente.");
+        }
+      });
+    });
+  }
+
+  // Carrega os clientes ao iniciar
+  carregarUsuarios();
+});
+
+
+    
+        // Adicionar eventos para exclusão de clientes
+        function adicionarEventosExcluir() {
+          document.querySelectorAll(".btn-delete").forEach((btn) => {
+            btn.addEventListener("click", async function () {
+              const id = this.getAttribute("data-id");
+    
+              try {
+                const response = await fetch(`/api/usuarios/${id}`, {
+                  method: "DELETE",
+                });
+    
+                if (!response.ok) {
+                  throw new Error("Erro ao excluir cliente.");
+                }
+    
+                this.closest(".accordion-item").remove();
+              } catch (error) {
+                console.error("Erro ao excluir:", error);
+                alert("Erro ao excluir cliente.");
+              }
+            });
+          });
+        }
+    
+        adicionarEventosExcluir();
+      });
     </script>
+    
+    
 
   </body>
 </html>

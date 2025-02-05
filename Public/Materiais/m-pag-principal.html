@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Materiais</title>
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="m-pag-principal.css" />
+  </head>
+  <body>
+    <div class="d-flex">
+      <!-- Sidebar -->
+      <nav id="sidebar" class="bg-light">
+        <div class="logo-container">
+          <a href="/index.html">
+            <img src="/IMGs/logotipo-jm.PNG" alt="Logo" class="logo" />
+          </a>
+        </div>
+
+        <ul class="nav flex-column">
+          <!-- Menu Item: Início -->
+          <li class="nav-item">
+            <a href="/index.html" class="nav-link py-3">
+              <i class="fas fa-home"></i>
+              <span class="nav-text">Home</span>
+            </a>
+          </li>
+
+          <!-- Menu Item: Clientes -->
+          <li class="nav-item">
+            <a href="/Usuário/u-pag-principal.html" class="nav-link py-3">
+              <i class="fa-solid fa-user-tie"></i>
+              <span class="nav-text">Usuário</span>
+            </a>
+          </li>
+          
+          <!-- Menu Item: Calendário -->
+          <li class="nav-item">
+            <a href="/Calendario/c-pag-principal.html" class="nav-link py-3">
+              <i class="fa-regular fa-calendar"></i>
+              <span class="nav-text">Calendário</span>
+            </a>
+          </li>
+
+          <!-- Menu Item: Financeiro -->
+          <li class="nav-item">
+            <a href="/Financeiro/f-pag-principal.html" class="nav-link py-3">
+              <i class="fa-solid fa-chart-pie"></i>
+              <span class="nav-text">Financeiro</span>
+            </a>
+          </li>
+          
+          <!-- Menu Item: Materiais -->
+          <li class="nav-item">
+            <a href="/Materiais/m-pag-principal.html" class="nav-link py-3">
+              <i class="fa-solid fa-box-archive"></i>
+              <span class="nav-text">Materiais</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Main Content -->
+      <div class="flex-grow-1 p-3">
+        <h2 class="mb-4">Estoque de Materiais</h2>
+        
+        <!-- Botão "Novo Material" -->
+        <button class="btn btn-primary" id="btn-create-product" data-bs-toggle="modal" data-bs-target="#newMaterialModal">
+          <i class="fas fa-plus"></i> Novo Material
+        </button>
+        
+        <!-- Contêiner para exibir os materiais -->
+        <div id="materials-container" class="mt-4">
+          <!-- Os cards dos materiais serão adicionados aqui -->
+        </div>
+        
+        <!-- Modal para Novo Material -->
+        <div class="modal fade" id="newMaterialModal" tabindex="-1" aria-labelledby="newMaterialModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="newMaterialModalLabel">Adicionar Novo Material</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <form id="new-material-form" action="/upload" method="POST" enctype="multipart/form-data">
+                  <div class="mb-3">
+                    <label for="material-name" class="form-label">Nome do Material</label>
+                    <input type="text" class="form-control" id="material-name" name="material-name" placeholder="Material" required>
+                  </div>
+                  <div class="mb-3">
+                    <label for="material-quantity" class="form-label">Quantidade</label>
+                    <input type="number" class="form-control" id="material-quantity" name="material-quantity" placeholder="Quantidade" required>
+                  </div>
+                  <div class="mb-3">
+                    <label for="material-description" class="form-label">Descrição</label>
+                    <textarea class="form-control" id="material-description" name="material-description" placeholder="Descrição"></textarea>
+                  </div>
+                  <div class="mb-3">
+                    <label for="material-image" class="form-label">Imagem do Material</label>
+                    <input type="file" class="form-control" id="material-image" name="material-image" accept="image/*">
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" id="save-new-material">Salvar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+    <script>
+      document.getElementById('save-new-material').addEventListener('click', function () {
+  const form = document.getElementById('new-material-form');
+  const formData = new FormData(form);
+
+  // Fazer a requisição para o servidor
+  fetch('http://localhost:3000/upload', {
+    method: 'POST',
+    body: formData,
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error('Erro ao salvar material no servidor.');
+      }
+      return response.json();
+    })
+    .then((data) => {
+      // Atualizar a página com o novo material
+      const materialsContainer = document.getElementById('materials-container');
+
+      if (!materialsContainer) {
+        console.error('Contêiner de materiais não encontrado!');
+        return;
+      }
+
+      // Criar o card do material
+      const materialCard = document.createElement('div');
+      materialCard.classList.add('card', 'm-2');
+      materialCard.style.width = '18rem';
+
+      materialCard.innerHTML = `
+        <img src="${data.imagePath}" class="card-img-top" alt="Imagem do Material">
+        <div class="card-body">
+          <h5 class="card-title">${data.name}</h5>
+          <p class="card-text">${data.description}</p>
+          <p class="card-text">Quantidade: ${data.quantity}</p>
+        </div>
+      `;
+
+      // Adicionar o novo card ao contêiner
+      materialsContainer.appendChild(materialCard);
+
+      // Fechar o modal
+      const modal = bootstrap.Modal.getInstance(document.getElementById('newMaterialModal'));
+      modal.hide();
+
+      // Limpar o formulário
+      form.reset();
+    })
+    .catch((error) => {
+      console.error('Erro ao salvar material:', error);
+      alert('Erro ao salvar material. Por favor, tente novamente.');
+    });
+});
+
+    </script>
+    
+  </body>
+</html>
